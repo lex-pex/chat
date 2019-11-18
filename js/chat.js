@@ -5,9 +5,9 @@ $(document).ready(function () {
     var current_length = 0;
     var user_name = '';
     var input_text = '';
+    var input_field = $('#input');
 
     chat.fetchMessages = function () {
-
         $.ajax({
             url: '/server/index.php',
             type: 'post',
@@ -29,13 +29,13 @@ $(document).ready(function () {
     $('form').submit(function (e) {
         e.preventDefault();
         user_name = $('#user_name').val();
-        input_text = $('#input').val();
+        input_text = input_field.val();
         if(validateUserName(user_name) && validateInput(input)) {
             $.post(
                 '/server/index.php',
                 { method: 'send', name: user_name, text: input_text }
             );
-            $('#input').val('');
+            input_field.val('');
         }
     });
 
